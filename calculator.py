@@ -2,16 +2,13 @@ import tkinter as tk
 import math
 import re
 
-# Initialize the main window
 root = tk.Tk()
 root.title("Calculator")
 num_rows = root.grid_size()[0]
 num_cols = root.grid_size()[1]
-# Entry widget for displaying the expression and result
 entry = tk.Entry(root, font=("Arial", 18), justify="right")
 entry.grid(row=0, column=0, columnspan=5, sticky="nsew")
 
-# Define button labels and their grid positions
 buttons = [
     ("7", 1, 0), ("8", 1, 1), ("9", 1, 2), ("⌫", 1, 3), ("C", 1, 4),
     ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3), ("/", 2, 4),
@@ -22,7 +19,6 @@ buttons = [
     ("e", 7, 0), ("ln", 7, 1), ("!", 7, 2), ("%", 7, 3), ("Deg", 7, 4)
 ]
 
-# Define themes
 light_theme = {
     "bg": "white", "entry_bg": "white", "entry_fg": "black",
     "button_bg": "SystemButtonFace", "button_fg": "black",
@@ -36,7 +32,6 @@ dark_theme = {
 
 dark_mode = False
 
-# Function to write text to the entry widget
 def write_to_entry(text):
     if text == "√":
         text = "√("
@@ -54,7 +49,6 @@ def write_to_entry(text):
 
 degree_mode = True
 
-# Function to evaluate the expression in the entry widget
 def evaluate():
     try:
         expression = entry.get()
@@ -86,15 +80,12 @@ def evaluate():
         entry.delete(0, tk.END)
         entry.insert(tk.END, "Error")
 
-# Function to clear the entry widget
 def clear():
     entry.delete(0, tk.END)
 
-# Function to delete the last character in the entry widget
 def backspace():
     entry.delete(len(entry.get())-1, tk.END)
 
-# Function to handle keypress events
 def handle_keypress(event):
     if event.char in "0123456789.+-*/()e!%":
         write_to_entry(event.char)
@@ -113,7 +104,6 @@ def handle_keypress(event):
     elif event.char == "!":
         write_to_entry("!")
 
-# Function to create and place buttons on the grid
 def create_button(text, row, col, command=None):
     if command is None:
         command = lambda t=text: write_to_entry(t)
@@ -142,7 +132,6 @@ def toggle_mode():
 
 buttons_obj = []    # List to store button objects
 
-# Create and place buttons on the grid, and adds buttons to button_obj list
 for (text, row, col) in buttons:
     if text == "=":
         create_button(text, row, col, evaluate)
@@ -161,7 +150,6 @@ for (text, row, col) in buttons:
     else:
         create_button(text, row, col)
 
-# Configure grid rows and columns to have equal weight
 for i in range(root.grid_size()[0]):
     root.grid_rowconfigure(i, weight=1)
 for i in range(root.grid_size()[1]):
