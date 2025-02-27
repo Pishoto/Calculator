@@ -130,7 +130,8 @@ def toggle_mode():
         if button[0] == "Deg":
             button[1].configure(text="Deg" if degree_mode else "Rad")
 
-buttons_obj = []    # List to store button objects
+# List to store button objects
+buttons_obj = []
 
 for (text, row, col) in buttons:
     if text == "=":
@@ -155,8 +156,7 @@ for i in range(root.grid_size()[0]):
 for i in range(root.grid_size()[1]):
     root.grid_columnconfigure(i, weight=1)
 
-# Bind keypress events to the handle_keypress function
+# Keyboard support
 root.bind("<Key>", handle_keypress)
 
-# Run the main event loop
 root.mainloop()
